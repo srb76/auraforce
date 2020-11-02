@@ -1,0 +1,24 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="MojangController">
+	<!--Attributes-->
+    <aura:attribute name="salesTotal" type="string"/>
+    <aura:attribute name="salesDaily" type="string" />
+    <aura:attribute name="sales" type="string[]" />
+    
+    <!--Sales Info-->
+    <lightning:card class="slds-text-heading--small" title="Minecraft Sales Info">
+    	<div class="slds-box">
+            <p class="slds-p-horizontal_small">Total Minecraft Sales:
+                <lightning:formattedNumber class="slds-m-left_medium grey" value="{!v.sales[0]}"></lightning:formattedNumber>
+            </p>
+        </div>
+        <div class="slds-box">
+        	<p class="slds-p-horizontal_small">Daily Minecraft Sales:
+            	<lightning:formattedNumber class="slds-m-left_medium grey" value="{!v.sales[1]}"></lightning:formattedNumber>
+            </p>
+        </div>
+        <lightning:button class="slds-m-left_x-small slds-m-top_x-small" label="Refresh" onclick="{!c.refresh}"/>
+    </lightning:card>
+    
+    <!--Handler-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+</aura:component>

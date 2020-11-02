@@ -1,0 +1,55 @@
+<apex:page standardController="Case" extensions="HelpExt" recordSetVar="cases" sidebar="false">
+    <apex:pageBlock title="Welcome to My Support Home">
+        <apex:form >
+            <apex:pageBlockSection title="I Have an Issue">
+                <apex:pageBlockSectionItem >
+                	<p>
+                        To get in contact with support staff and resolve an issue you are having with
+                        your mail or account, please click the button below.
+                    </p>
+                    <br/>
+                </apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+                
+                </apex:pageBlockSectionItem>                
+                <apex:commandButton value="Submit a Ticket" action="{!gotoSupportWizard}"/>
+    
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="My Current Support Tickets">
+                <apex:pageBlockTable value="{!openCases}" var="case">
+                    <apex:column value="{!case.subject}"/>
+                    <apex:column value="{!case.reason}"/>
+                    <apex:column value="{!case.status}"/>
+                    <apex:column >
+                    	<apex:commandLink value="Add Comment" action="{!addComment}">
+                        	<apex:param name="caseid" value="{!case.id}" assignTo="{!caseToComment}"/>
+                        </apex:commandLink>
+                    </apex:column>
+
+                </apex:pageBlockTable>
+                <apex:pageBlockSectionItem >
+                
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                	<apex:commandButton value="Previous" action="{!prevOpenCases}"/>
+                	<apex:commandButton value="Next" action="{!nextOpenCases}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="My Ticket History">
+            	<apex:pageBlockTable value="{!closedCases}" var="closed">
+                	<apex:column value="{!closed.subject}"/>
+                    <apex:column value="{!closed.createdDate}"/>
+                    <apex:column value="{!closed.closedDate}"/>
+                </apex:pageBlockTable>
+                <apex:pageBlockSectionItem >
+                
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                	<apex:commandButton value="Previous" action="{!prevClosedCases}"/>
+                	<apex:commandButton value="Next" action="{!nextClosedCases}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

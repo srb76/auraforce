@@ -1,0 +1,36 @@
+<apex:page controller="CommentController" sidebar="false">
+    <apex:pageBlock >
+    	<apex:form >
+            <apex:pageBlockSection title="Add a Comment">
+            	<apex:pageBlockSectionItem >
+                	<apex:outputLabel value="If you have an update on your issue or need to tell support staff something, enter it here:  ">
+                        <br/><br/>
+                        <apex:inputTextarea value="{!newComment}" cols="75" rows="8"/>
+                    </apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem />
+                
+                <apex:pageBlockSectionItem >
+                	<apex:commandButton value="Add Comment" action="{!addComment}"/>
+                    <apex:commandButton value="Back to Home" action="{!goToSupportHome}" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+        	<apex:pageBlockSection title="Comments on Your Case">
+            	<apex:pageBlockTable value="{!comments}" var="comm">
+                    <apex:column headerValue="Poster" value="{!comm.CreatedById}"/>
+                    <apex:column value="{!comm.CreatedDate}"/>
+                	<apex:column value="{!comm.CommentBody}"/>
+                </apex:pageBlockTable>
+                <apex:pageBlockSectionItem >
+                
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                	<apex:commandButton value="Previous" action="{!prev}"/>
+                	<apex:commandButton value="Next" action="{!next}"/>
+                </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

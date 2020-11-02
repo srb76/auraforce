@@ -1,0 +1,78 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,force:hasRecordId" access="global" controller="MojangController">
+    <!--Attributes-->
+    <aura:attribute name="username" type="string"/>
+    <aura:attribute name="formUsername" type="string"/>
+    <aura:attribute name="formAccName" type="string"/>
+    <aura:attribute name="needName" type="boolean" default="true"/>
+    <aura:attribute name="needDb" type="boolean" default="false"/>
+    <aura:attribute name="showInfo" type="boolean" default="false"/>
+    <aura:attribute name="mcId" type="id"/>
+    <aura:attribute name="mcRecord" type="object"/>
+    <aura:attribute name="recordError" type="string" />
+    <aura:attribute name="mcView" type="object" />
+    
+    <!--Username input-->
+    <aura:if isTrue="{!v.needName}">
+        <lightning:card title="Enter Your Minecraft.net Username">
+            <p class="slds-text-heading--small slds-p-horizontal_small">To retrieve info about your Minecraft account, please enter a username below:</p>
+            <lightning:input class="slds-m-left_small" name="inputUsername" value="{!v.username}" placeholder="Minecraft.net Username" />
+            <div>
+            	<lightning:button class="slds-m-left_x-small slds-m-top_x-small slds-text-heading--small" label="Get Info" onclick="{!c.getInfo}" />
+            </div>
+        </lightning:card>
+    </aura:if>
+    
+    <!--Account Form-->
+    <aura:if isTrue="{!v.needDb}">
+    	<lightning:card class="slds-text-heading--small" title="Save Account Info">
+            <div class="slds-box">
+                <p>No local copy of your account was found in the Mojang Community.</p>
+                <p>Click Add Account below to create one.</p>
+                <br/>
+                <lightning:recordEditForm aura:id="mcAccountForm" objectApiName="Minecraft_Account__c" 
+                                           onsuccess="{!c.handleSubmit}">
+                    <lightning:messages/>
+                    <lightning:inputField fieldName="Name" value="{!v.formAccName}"/>
+                    <lightning:inputField fieldName="Username__c" value="{!v.formUsername}"/>
+                    <lightning:button class="slds-m-top_small" type="submit" label="Add Account to Database"/>
+                    <lightning:button class="slds-m-top_small" label="Cancel" onclick="{!c.cancelHandler}"/>
+                </lightning:recordEditForm>
+            </div>
+        </lightning:card>
+    </aura:if>
+    
+    <!--Account Info-->
+    <aura:if isTrue="{!v.showInfo}">
+    	<lightning:card title="Your Current Minecraft Info">
+            <aura:if isTrue="{!not(empty(v.mcId))}">
+                
+                <!--RecordData form-->
+                <force:recordData recordId="{!v.mcId}" fields="Username__c, UUID__c, Skin_URL__c" targetRecord="{!v.mcRecord}" mode="VIEW" 
+                                  aura:id="accData" targetFields="{!v.mcView}"/>
+                
+                <div class="slds-box slds-text-heading--small">
+                    <p class="slds-m-left_small">Minecraft.net Username: 
+                        <lightning:formattedText class="slds-m-left_medium grey" value="{!v.mcView.Username__c}" />
+                    </p>
+                </div>
+                <div class="slds-box slds-text-heading--small">
+                    <p class="slds-m-left_small">Unique ID (UUID): 
+                        <lightning:formattedText class="slds-m-left_xx-large grey" value="{!v.mcView.UUID__c}" />
+                    </p>
+                </div>
+                <div class="slds-box slds-text-heading--small">
+                    <p class="slds-m-left_small">Character Skin URL: 
+                        <lightning:formattedUrl class="slds-m-left_large" value="{!v.mcView.Skin_URL__c}" />
+                        <img class="slds-m-left_large" src="{!v.mcView.Skin_URL__c}"/>
+                    </p>
+                </div>
+                <!--Buttons to retrieve data via api callouts-->
+                <lightning:buttonGroup class="slds-text-heading--small slds-m-left_x-small slds-m-top_x-small">
+                    <lightning:button label="Get UUID and Skin URL" onclick="{!c.updateInfo}"/>
+                    <lightning:button label="Search Another Account" onclick="{!c.searchHandler}"/>
+                </lightning:buttonGroup>
+            </aura:if>
+        </lightning:card>
+    </aura:if>
+    
+</aura:component>

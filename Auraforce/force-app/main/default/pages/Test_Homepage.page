@@ -1,0 +1,35 @@
+<apex:page standardController="Account">
+    <body>
+  
+      <h1>Test Homepage</h1><br/>
+      
+      <h2>Please choose one of the following options to manage your mail: </h2><br/>
+      
+      <div>
+          <label>View Account Details</label>
+          <input type="submit" value="My Account" /><br/> 
+      </div>
+      
+      <div>
+          <label>View My Packages In Transit</label>
+          <input type="submit" value="My Packages" /><br/>
+      </div>
+      
+      <div>
+          <label>View Delivery History</label>
+          <input type="submit" value="My Delivery History" /><br/> 
+      </div>
+      
+      <div>
+          <label>Track A Package</label>
+          <input type="number" />
+          <input type="submit" value="Find" /><br/>
+      </div>
+      
+      <div>
+          <label>Get Help</label>
+          <input type="submit" value="Contact Support" /><br/>
+      </div>
+    </body>
+  
+</apex:page>

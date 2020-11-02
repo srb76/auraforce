@@ -1,0 +1,38 @@
+<apex:page standardController="Case" extensions="HelpWizardExt" sidebar="false">
+    <apex:pageBlock >
+        <apex:form >
+            <apex:pageBlockSection title="Enter details about your issue below: ">
+                <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Subject:  ">
+                            <apex:inputField value="{!Case.subject}" required="true"/>
+                        </apex:outputLabel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection >
+            	<apex:pageBlockSectionItem >
+                	<apex:outputLabel value="Please enter a brief description of your problem:  ">
+                        <br/>
+                        <apex:inputField value="{!Case.description}" required="true"/>
+                    </apex:outputLabel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection >
+            	<apex:pageBlockSectionItem >
+                	<apex:outputLabel value="Select the type of problem you are having:  ">
+                    	<apex:selectList value="{!selectReason}" required="true">
+                            <br/>
+                            <apex:selectOption itemValue="Login or Account Issue" />
+                            <apex:selectOption itemValue="Lost Package" />
+                            <apex:selectOption itemValue="Other" />
+                        </apex:selectList>
+                    </apex:outputLabel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:commandButton value="Cancel" action="{!goToSupportHome}" immediate="true"/>
+            <apex:commandButton value="Submit Ticket" action="{!submitCase}"/>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>
