@@ -13,7 +13,6 @@ A customer community in Salesforce that allows users to view and save details ab
 
 ## Features
 
-List of features ready and TODOs for future development
 * Retrieves public Minecraft account data from the Mojang API based on user input.
 * Provides an interactive user experience in a SPA (Single Page Application) via Lightning Aura Components.
 * Saves and retrieves API data to the org database.
